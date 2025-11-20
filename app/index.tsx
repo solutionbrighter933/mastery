@@ -2,12 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions, Platform, Image, Modal, Pressable, Linking } from 'react-native';
 import { ArrowLeft, ShoppingCart, MoveVertical as MoreVertical, Heart, Truck, ChevronRight, Star, ChevronUp, ChevronDown, MessageCircle, Play, CircleCheck as CheckCircle, X, ThumbsUp } from 'lucide-react-native';
 import { useRouter, useFocusEffect } from 'expo-router';
-import { createClient } from '@supabase/supabase-js';
 import { useCallback } from 'react';
-
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from '@/lib/supabase';
 
 const getSessionId = () => {
   if (typeof window !== 'undefined') {

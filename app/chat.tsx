@@ -135,11 +135,12 @@ export default function Chat() {
         content: m.content
       }));
 
-      const apiUrl = `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/chat-ai`;
+      const { supabaseUrl, supabaseAnonKey } = await import('@/lib/supabase');
+      const apiUrl = `${supabaseUrl}/functions/v1/chat-ai`;
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY}`,
+          'Authorization': `Bearer ${supabaseAnonKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({

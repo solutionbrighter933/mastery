@@ -2,12 +2,8 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform, Clipboard, Image, ActivityIndicator, Modal, TextInput } from 'react-native';
 import { ArrowLeft, CheckCircle, Info, CreditCard as CreditCardIcon, ShieldCheck } from 'lucide-react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { LinearGradient } from 'expo-linear-gradient';
-
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function Payment() {
   const router = useRouter();

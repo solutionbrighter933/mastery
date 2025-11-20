@@ -2,11 +2,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform, Image, 
 import { ArrowLeft, MapPin, Package, Truck, CreditCard, Info } from 'lucide-react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from '@/lib/supabase';
 
 export default function OrderConfirmation() {
   const router = useRouter();
@@ -336,10 +332,11 @@ export default function OrderConfirmation() {
                 if (addressError) throw addressError;
 
                 if (selectedPayment === 'creditCard') {
-                  const paymentIntentResponse = await fetch(`${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/create-payment-intent`, {
+                  const { supabaseUrl, supabaseAnonKey } = await import('@/lib/supabase');
+                  const paymentIntentResponse = await fetch(`${supabaseUrl}/functions/v1/create-payment-intent`, {
                     method: 'POST',
                     headers: {
-                      'Authorization': `Bearer ${process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY}`,
+                      'Authorization': `Bearer ${supabaseAnonKey}`,
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
